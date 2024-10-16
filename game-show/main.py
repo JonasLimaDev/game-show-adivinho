@@ -41,16 +41,19 @@ def main(page: ft.Page):
         aleatorio_atual = botao_menor.data[0]
         if botao_menor.data[1] < botao_menor.data[0]:
             texto_resultado.value = f"O próximo foi {botao_menor.data[1]}, você Acertou"
+            page.open(dlg_modal)
             text_numero_sorteado.value = f"O número Sorteado é: {botao_menor.data[1]}"
             atualiza_valores_botoes(botao_menor.data[1])
             page.update()
         elif botao_menor.data[0] == botao_menor.data[1]:
             texto_resultado.value = f"O próximo foi {botao_menor.data[1]}, Foi empate"
+            page.open(dlg_modal)
             text_numero_sorteado.value = f"O número Sorteado é: {botao_menor.data[1]}"
             atualiza_valores_botoes(botao_menor.data[1])
             page.update()
         else:
             texto_resultado.value = f"O próximo é {botao_menor.data[1]}, você Errou"
+            page.open(dlg_modal)
             text_numero_sorteado.value = f"O número Sorteado é: {botao_menor.data[1]}"
             atualiza_valores_botoes(botao_menor.data[1])
             page.update()
@@ -59,17 +62,20 @@ def main(page: ft.Page):
     def evento_botao_maior(e):
         if botao_maior.data[1] > botao_maior.data[0]:
             texto_resultado.value = f"O próximo é {botao_maior.data[1]}, você Acertou"
+            page.open(dlg_modal)
             text_numero_sorteado.value = f"O número Sorteado é: {botao_maior.data[1]}"
             atualiza_valores_botoes(botao_maior.data[1])
             page.update()
         elif botao_maior.data[0] == botao_maior.data[1]:
             texto_resultado.value = f"O próximo é {botao_maior.data[1]}, Foi empate"
+            page.open(dlg_modal)
             text_numero_sorteado.value = f"O número Sorteado é: {botao_maior.data[1]}"
             atualiza_valores_botoes(botao_maior.data[1])
             page.update()
             
         else:
             texto_resultado.value = f"O próximo é {botao_maior.data[1]}, você Errou"
+            page.open(dlg_modal)
             text_numero_sorteado.value = f"O número Sorteado é: {botao_maior.data[1]}"
             atualiza_valores_botoes(botao_maior.data[1])
             page.update()
@@ -107,7 +113,24 @@ def main(page: ft.Page):
         padding=10,
         content=linha_grupo_botoes)]
     )
+
+    def handle_close(e):
+        page.close(dlg_modal)
+        # page.add(ft.Text(f"Modal dialog closed with action: {e.control.text}"))
+
+    dlg_modal = ft.AlertDialog(
+        modal=True,
+        title=ft.Text("Resultado"),
+        content=texto_resultado,
+        actions=[
+            ft.TextButton("Continuar", on_click=handle_close),
+            # ft.TextButton("No", on_click=handle_close),
+        ],
+        actions_alignment=ft.MainAxisAlignment.END,
+    )
+
+
     page.add(container_botoes)
-    page.add(criar_container_texto(texto_resultado))
+    # page.add(criar_container_texto(texto_resultado))
 
 ft.app(main)
