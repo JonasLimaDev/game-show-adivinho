@@ -1,9 +1,8 @@
 import flet as ft
 from random import randint
 
-def sorteia_numero():
-    numero = randint(0,9) 
-    return int(numero)
+from regras import sorteia_numero, verifica_resultado
+
 
 numero_sorteado = sorteia_numero()
 proximo = sorteia_numero()
@@ -26,7 +25,7 @@ def main(page: ft.Page):
     
     # configurações iniciais da janela
     page.title = "GAME SHOW - Adivinhe o Próximo Número"
-    page.window.width = 380       
+    page.window.width = 400       
     page.window.height = 480
     page.update()
 
@@ -39,46 +38,41 @@ def main(page: ft.Page):
 
     def evento_botao_menor(e):
         aleatorio_atual = botao_menor.data[0]
-        if botao_menor.data[1] < botao_menor.data[0]:
-            texto_resultado.value = f"O próximo foi {botao_menor.data[1]}, você Acertou"
-            page.open(dlg_modal)
-            text_numero_sorteado.value = f"O número Sorteado é: {botao_menor.data[1]}"
-            atualiza_valores_botoes(botao_menor.data[1])
-            page.update()
-        elif botao_menor.data[0] == botao_menor.data[1]:
-            texto_resultado.value = f"O próximo foi {botao_menor.data[1]}, Foi empate"
-            page.open(dlg_modal)
-            text_numero_sorteado.value = f"O número Sorteado é: {botao_menor.data[1]}"
-            atualiza_valores_botoes(botao_menor.data[1])
-            page.update()
-        else:
-            texto_resultado.value = f"O próximo é {botao_menor.data[1]}, você Errou"
-            page.open(dlg_modal)
-            text_numero_sorteado.value = f"O número Sorteado é: {botao_menor.data[1]}"
-            atualiza_valores_botoes(botao_menor.data[1])
-            page.update()
-            
+        proximo = botao_menor.data[1]
+        texto_resultado.value = verifica_resultado("menor",aleatorio_atual,proximo)
+        page.open(dlg_modal)
+        text_numero_sorteado.value = f"O número Sorteado é: {proximo}"
+        atualiza_valores_botoes(botao_menor.data[1])
+        page.update()
+       
 
     def evento_botao_maior(e):
-        if botao_maior.data[1] > botao_maior.data[0]:
-            texto_resultado.value = f"O próximo é {botao_maior.data[1]}, você Acertou"
-            page.open(dlg_modal)
-            text_numero_sorteado.value = f"O número Sorteado é: {botao_maior.data[1]}"
-            atualiza_valores_botoes(botao_maior.data[1])
-            page.update()
-        elif botao_maior.data[0] == botao_maior.data[1]:
-            texto_resultado.value = f"O próximo é {botao_maior.data[1]}, Foi empate"
-            page.open(dlg_modal)
-            text_numero_sorteado.value = f"O número Sorteado é: {botao_maior.data[1]}"
-            atualiza_valores_botoes(botao_maior.data[1])
-            page.update()
+        aleatorio_atual = botao_maior.data[0]
+        proximo = botao_maior.data[1]
+        texto_resultado.value = verifica_resultado("maior", aleatorio_atual, proximo)
+        page.open(dlg_modal)
+        text_numero_sorteado.value = f"O número Sorteado é: {proximo}"
+        atualiza_valores_botoes(botao_maior.data[1])
+        page.update()
+        # if botao_maior.data[1] > botao_maior.data[0]:
+        #     texto_resultado.value = f"O próximo é {botao_maior.data[1]}, você Acertou"
+        #     page.open(dlg_modal)
+        #     text_numero_sorteado.value = f"O número Sorteado é: {botao_maior.data[1]}"
+        #     atualiza_valores_botoes(botao_maior.data[1])
+        #     page.update()
+        # elif botao_maior.data[0] == botao_maior.data[1]:
+        #     texto_resultado.value = f"O próximo é {botao_maior.data[1]}, Foi empate"
+        #     page.open(dlg_modal)
+        #     text_numero_sorteado.value = f"O número Sorteado é: {botao_maior.data[1]}"
+        #     atualiza_valores_botoes(botao_maior.data[1])
+        #     page.update()
             
-        else:
-            texto_resultado.value = f"O próximo é {botao_maior.data[1]}, você Errou"
-            page.open(dlg_modal)
-            text_numero_sorteado.value = f"O número Sorteado é: {botao_maior.data[1]}"
-            atualiza_valores_botoes(botao_maior.data[1])
-            page.update()
+        # else:
+        #     texto_resultado.value = f"O próximo é {botao_maior.data[1]}, você Errou"
+        #     page.open(dlg_modal)
+        #     text_numero_sorteado.value = f"O número Sorteado é: {botao_maior.data[1]}"
+        #     atualiza_valores_botoes(botao_maior.data[1])
+        #     page.update()
             
 
 
