@@ -19,3 +19,18 @@ def verifica_resultado(resposta, numero_conhecido, numero_gerado):
             return f"O próximo foi {numero_gerado}.\n{numero_gerado} > {numero_conhecido}, Você Acertou!"
         else:
             return f"O próximo foi {numero_gerado}.\n{numero_gerado} > {numero_conhecido}, Você Errou!"
+
+
+def soma_pontos(texto_resultado,ponto_atual):
+    if "Acertou" in texto_resultado:
+        return ponto_atual + 1
+    else:
+        return ponto_atual
+
+
+def controle_tentativas(texto_resultado, tetantivas):
+    if "Errou" in texto_resultado:
+        return tetantivas - 1
+    else:
+        return tetantivas
+
